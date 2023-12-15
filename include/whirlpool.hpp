@@ -1,6 +1,7 @@
 #pragma once
 
-#include <functional>
+#include <condition_variable>
+#include <future>
 #include <queue>
 #include <vector>
 #include <thread>
@@ -8,12 +9,16 @@
 
 class ThreadPool {
 private:
-  std::vector<std::thread> threads;
-  std::mutex queue_lock;
-  std::queue<std::function<void()>> job_queue;
+    std::atomic_bool active { true };
+    std::vector<std::thread> thread_pool;
+    std::queue<std::packaged_task<void()>> job_queue;
+    std::mutex pool_lock;
+    std::condition_variable cv;
+    void run();
 public:
-  void QueueJob();
-  void Start();
-  void Stop();
-  bool Busy();
+    explicit ThreadPool(int num_threads = 1);
+    ~ThreadPool();
+    void post(std::packaged_task<void()>);
+    void stop();
+    bool busy();
 };
