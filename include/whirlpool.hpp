@@ -23,6 +23,5 @@ public:
     auto post(Function&& f, Args&&... args) -> std::future<decltype(f(args...))>;
     void stop();
     void start();
-    void wait();
     bool busy();
 };

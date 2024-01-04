@@ -93,5 +93,5 @@ void ThreadPool::start() {
 }
 
 bool ThreadPool::busy() {
-    return !job_queue.empty();
+    return active;
 }
