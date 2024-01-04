@@ -2,6 +2,10 @@
 #include <future>
 #include <functional>
 #include <unistd.h>
+#include <chrono>
+#include <fstream>
+
+#define LOG_FILE "time.log"
 
 ThreadPool::ThreadPool(int num_threads) {
     active = true;
@@ -53,7 +57,23 @@ void ThreadPool::run() {
             auto job = std::move(job_queue.front());
             job_queue.pop();
             lock.unlock();
+            // THREAD_TIMER macro displays job time in seconds via std::cout; 
+            #ifdef THREAD_TIMER
+            {
+                std::chrono::duration<double> thread_time(0);
+                auto start_time = std::chrono::high_resolution_clock::now();
+                job();
+                thread_time = std::chrono::high_resolution_clock::now() - start_time;
+                std::lock_guard<std::mutex> time_lock(log_lock);
+                std::ofstream log(LOG_FILE, std::ios::app);
+                if (log.is_open()) {
+                    log << "Job took: " << thread_time.count() * 1000 << " seconds.\n";
+                }
+                log.close();
+            }
+            #else
             job();
+            #endif
         }
         else {
             break;
@@ -67,6 +87,11 @@ void ThreadPool::stop() {
     cv.notify_all();
 }
 
+void ThreadPool::start() {
+    active = true;
+    cv.notify_all();
+}
+
 bool ThreadPool::busy() {
-    return active;
+    return !job_queue.empty();
 }

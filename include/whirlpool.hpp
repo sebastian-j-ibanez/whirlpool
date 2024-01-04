@@ -13,6 +13,7 @@ private:
     std::vector<std::thread> thread_pool;
     std::queue<std::function<void()>> job_queue;
     std::mutex pool_lock;
+    std::mutex log_lock;
     std::condition_variable cv;
     void run();
 public:
@@ -21,5 +22,7 @@ public:
     template <typename Function, typename... Args>
     auto post(Function&& f, Args&&... args) -> std::future<decltype(f(args...))>;
     void stop();
+    void start();
+    void wait();
     bool busy();
 };
