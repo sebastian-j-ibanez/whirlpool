@@ -8,7 +8,7 @@
 
 ThreadPool::ThreadPool(int num_threads) {
     active = true;
-    this.resize(num_threads);
+    this->resize(num_threads);
 }
 
 ThreadPool::~ThreadPool() {
@@ -96,8 +96,8 @@ bool ThreadPool::busy() {
 // Resize the thread_pool vector given a new_size parameter.
 void ThreadPool::resize(int num_threads) {
     // Make sure thread pool is not busy.
-    if (!this.busy()) {
-        this.stop();
+    if (!this->busy()) {
+        this->stop();
     }
 
     // Clear thread_pool.
