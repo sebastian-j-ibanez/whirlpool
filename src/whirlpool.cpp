@@ -8,7 +8,7 @@
 
 ThreadPool::ThreadPool(int num_threads) {
     active = true;
-    this.resize(num_threads)
+    this.resize(num_threads);
 }
 
 ThreadPool::~ThreadPool() {
@@ -94,14 +94,14 @@ bool ThreadPool::busy() {
 }
 
 // Resize the thread_pool vector given a new_size parameter.
-void ThreadPool::resize(int new_size) {
+void ThreadPool::resize(int num_threads) {
     // Make sure thread pool is not busy.
     if (!this.busy()) {
-        this.stop()
+        this.stop();
     }
 
     // Clear thread_pool.
-    thread_pool.clear()
+    thread_pool.clear();
 
     // Add threads to thread_pool.
     for (int i = 0; i < num_threads; i++) {
