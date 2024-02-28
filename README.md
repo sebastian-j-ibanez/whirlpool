@@ -7,3 +7,4 @@
 - [ ] Logging
 - [ ] Worker thread class
 - [ ] Individual thread queues
+- [ ] Conan package
