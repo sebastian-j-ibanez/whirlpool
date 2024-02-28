@@ -1,7 +1,6 @@
 #include "../include/whirlpool.hpp"
 #include <future>
 #include <functional>
-#include <unistd.h>
 #include <chrono>
 #include <fstream>
 
@@ -48,7 +47,7 @@ auto ThreadPool::post(Function&& f, Args&&... args) -> std::future<decltype(f(ar
 
 void ThreadPool::run() {
     while(active) {
-        std::unique_lock lock(pool_lock);
+        std::unique_lock<std::mutex> lock(pool_lock);
         cv.wait(lock, [&] { return !job_queue.empty() || !active; });
         // Get job if thread pool is still active
         if(active) {
