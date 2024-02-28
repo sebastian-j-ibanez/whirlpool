@@ -9,9 +9,7 @@
 
 ThreadPool::ThreadPool(int num_threads) {
     active = true;
-    for (int i = 0; i < num_threads; i++) {
-        thread_pool.emplace_back(&ThreadPool::run, this);
-    }
+    this.resize(num_threads)
 }
 
 ThreadPool::~ThreadPool() {
@@ -22,18 +20,18 @@ ThreadPool::~ThreadPool() {
     }
 
     for (auto& thread : thread_pool) {
-        thread.join();    
+        thread.join();
     }
 }
 
 template <typename Function, typename... Args>
 auto ThreadPool::post(Function&& f, Args&&... args) -> std::future<decltype(f(args...))> {
     using ReturnType = decltype(f(args...));
-    
+
     // Create packaged task using function
     auto func_ptr = std::make_shared<std::packaged_task<decltype(f(args...))()>>(
             std::bind(std::forward<Function>(f), std::forward<Args>(args)...));
-    auto func_wrapper = [func_ptr]()  { 
+    auto func_wrapper = [func_ptr]()  {
         (*func_ptr)();
     };
 
@@ -42,7 +40,7 @@ auto ThreadPool::post(Function&& f, Args&&... args) -> std::future<decltype(f(ar
         job_queue.push(func_wrapper);
         cv.notify_one();
     }
-    
+
     // Get task future
     auto future = func_ptr->get_future();
     return future;
@@ -57,7 +55,7 @@ void ThreadPool::run() {
             auto job = std::move(job_queue.front());
             job_queue.pop();
             lock.unlock();
-            // THREAD_TIMER macro displays job time in seconds via std::cout; 
+            // THREAD_TIMER macro displays job time in seconds via std::cout;
             #ifdef THREAD_TIMER
             {
                 std::chrono::duration<double> thread_time(0);
@@ -94,4 +92,20 @@ void ThreadPool::start() {
 
 bool ThreadPool::busy() {
     return active;
+}
+
+// Resize the thread_pool vector given a new_size parameter.
+void ThreadPool::resize(int new_size) {
+    // Make sure thread pool is not busy.
+    if (!this.busy()) {
+        this.stop()
+    }
+
+    // Clear thread_pool.
+    thread_pool.clear()
+
+    // Add threads to thread_pool.
+    for (int i = 0; i < num_threads; i++) {
+        thread_pool.emplace_back(&ThreadPool::run, this);
+    }
 }

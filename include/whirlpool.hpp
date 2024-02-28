@@ -24,4 +24,5 @@ public:
     void stop();
     void start();
     bool busy();
+    void resize(int new_size);
 };
