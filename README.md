@@ -4,7 +4,7 @@
 
 ### <ins>Potential Features Ideas</ins>
 - [x] Logging
-- [ ] Dynamic resizing
+- [x] Dynamic resizing
 - [ ] Pause threads
 - [ ] Worker thread class
 - [ ] Individual thread queues
