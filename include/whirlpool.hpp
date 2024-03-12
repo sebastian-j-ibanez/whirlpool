@@ -21,8 +21,8 @@ public:
     ~ThreadPool();
     template <typename Function, typename... Args>
     auto post(Function&& f, Args&&... args) -> std::future<decltype(f(args...))>;
-    void stop();
     void start();
-    bool busy();
+    void stop();
     void resize(int num_threads);
+    bool busy();
 };
