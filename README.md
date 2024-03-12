@@ -6,8 +6,9 @@
 
 ## <ins>Potential Features</ins>
 
-- [ ] Dynamic resizing
-- [ ] Logging
+- [x] Logging
+- [x] Dynamic resizing
+- [ ] Pause threads
 - [ ] Worker thread class
 - [ ] Individual thread queues
 - [ ] Conan package
