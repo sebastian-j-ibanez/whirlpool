@@ -1,8 +1,10 @@
 # Whirlpool :ocean:
 
 ![Static Badge](https://img.shields.io/badge/Cpp-20-blue?style=flat&logo=cplusplus)
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/sebastian-j-ibanez/whirlpool?logo=github)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/sebastian-j-ibanez/whirlpool?logo=github)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/sebastian-j-ibanez/whirlpool?logo=github&color=orange)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-closed/sebastian-j-ibanez/whirlpool?style=flat&logo=github&color=green)
+
 
 ## <ins>Description</ins>
 
