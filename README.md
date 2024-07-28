@@ -16,4 +16,3 @@
 - [ ] Pause threads
 - [ ] Worker thread class
 - [ ] Individual thread queues
-- [ ] Conan package
