@@ -60,8 +60,7 @@ private:
 #else
         job();
 #endif
-      }
-      else {
+      } else {
         return;
       }
     }
@@ -78,16 +77,13 @@ public:
 
   ~ThreadPool() { this->stop(); }
 
-  // Template to define a generic function address and dynamic number of arguments.
-  template <typename Function, typename... Args>
   // Post function using the generic function/arg template.
+  template <typename Function, typename... Args>
   auto post(Function&& f, Args&&... args) -> std::future<decltype(f(args...))> {
-    // Get return type of Function parameter.
     using ReturnType = decltype(f(args...));
 
     // Create packaged task using function
-    auto func_ptr = std::make_shared<std::packaged_task<decltype(f(args...))()>>(
-                                                                                 std::bind(std::forward<Function>(f), std::forward<Args>(args)...));
+    auto func_ptr = std::make_shared<std::packaged_task<decltype(f(args...))()>>(std::bind(std::forward<Function>(f), std::forward<Args>(args)...));
 
     auto func_wrapper = [func_ptr]()  {
       (*func_ptr)();
