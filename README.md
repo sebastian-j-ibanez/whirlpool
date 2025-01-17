@@ -1,8 +1,7 @@
 # Whirlpool :ocean:
 
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/sebastian-j-ibanez/whirlpool?logo=github)
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/sebastian-j-ibanez/whirlpool?logo=github&color=orange)
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-closed/sebastian-j-ibanez/whirlpool?style=flat&logo=github&color=green)
+![GitHub License](https://img.shields.io/github/license/sebastian-j-ibanez/whirlpool?color=orange)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/sebastian-j-ibanez/whirlpool)
 
 
 ## <ins>Description</ins>
